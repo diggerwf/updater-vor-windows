@@ -61,12 +61,6 @@ if exist ".git\" (
 echo.
 echo ✨ Fertig! Dein Ordner ist jetzt mit !REPO_URL! synchron. 🥳
 
-echo.
-echo ✨ Fertig! Dein Ordner ist jetzt mit !REPO_URL! synchron. 🥳
-
-echo.
-echo ✨ Fertig! Dein Ordner ist jetzt synchron. 🥳 
-
 :: 🚀 Programm nach dem Update / Check starten
 if exist "!START_FILE!" (
     echo 🚀 Starte !START_FILE!...
@@ -74,3 +68,4 @@ if exist "!START_FILE!" (
 )
 
 pause
+
