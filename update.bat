@@ -8,55 +8,55 @@ set "BRANCH=main"
 set "REPO_DIR=%~dp0"
 cd /d "%REPO_DIR%"
 
-echo 🔍 Prüfe Systemvoraussetzungen...
+echo 🔎 Suche nach Updates...
 
 :: 🛠️ 1. GIT CHECK
 git --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ❌ Git fehlt! Installiere... 🚀
-    winget install Git.Git --silent --accept-package-agreements --accept-source-agreements
-    echo ✅ Git installiert! Starte neu...
-    timeout /t 3 >nul
-    start "" "%~f0"
+    echo ❌ Git nicht gefunden!
+    pause
     exit /b
 )
 
-:: 🔄 2. UPDATE, ADD & DELETE LOGIK
+:: 🔄 2. UPDATE LOGIK
 if exist ".git\" (
-    echo 📡 Suche nach Änderungen auf GitHub...
+    :: Sicherstellen, dass wir auf dem richtigen Branch sind
+    git checkout %BRANCH% --quiet
     
+    :: Remote-Infos holen
     git fetch origin %BRANCH% --quiet
 
+    :: Hashes vergleichen
     for /f "tokens=*" %%a in ('git rev-parse HEAD') do set "LOCAL_HASH=%%a"
     for /f "tokens=1" %%a in ('git ls-remote origin %BRANCH%') do set "REMOTE_HASH=%%a"
 
     if "!LOCAL_HASH!" neq "!REMOTE_HASH!" (
-        echo 🆕 Änderungen erkannt! Synchronisiere Ordner... 📥
+        echo 🆕 Update gefunden! Versionen werden angeglichen... 📥
         
-        :: Setzt alles auf den Stand von GitHub zurück
+        :: ALLES überschreiben und aufräumen
         git reset --hard origin/%BRANCH% --quiet
-        
-        :: Löscht ALLES Lokale, was NICHT auf GitHub ist (Add/Remove Logik)
         git clean -fd >nul
         
-        echo 🚀 Synchronisation abgeschlossen! Starte neu... 🔄
-        timeout /t 2 >nul
+        echo ✅ Update erfolgreich installiert!
+        echo 🔄 Starte in 3 Sekunden neu...
+        timeout /t 3
+        
+        :: Neustart
         start "" "%~f0"
         exit /b
     ) else (
-        echo ✅ Alles aktuell! (Hinzufügen/Entfernen nicht nötig) 😎
+        echo ✅ Alles aktuell! ✨
     )
 ) else (
-    echo 🏗️ Initialisiere neues Repository... 🔧
+    echo 🏗️ Ersteinrichtung: Klone Repository... 🔧
     git init --quiet
-    git remote add origin %REPO_URL%
+    git remote add origin %REPO_URL% >nul 2>&1
     git fetch --quiet
     git reset --hard origin/%BRANCH% --quiet
     git clean -fd >nul
-    echo 🔗 Ordner erfolgreich mit GitHub verbunden! 📦
+    echo 🔗 Verbunden! 📦
 )
 
 echo.
-echo ✨ Fertig! Dein Ordner ist jetzt 1:1 wie auf GitHub. 🥳
+echo 🚀 Das Programm ist jetzt bereit.
 pause
-
