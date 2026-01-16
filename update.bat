@@ -6,6 +6,7 @@ setlocal enabledelayedexpansion
 set "REPO_URL=https://github.com/diggerwf/updater-vor-windows.git"
 set "BRANCH=main"
 set "REPO_DIR=%~dp0"
+set "START_FILE=deine_datei.exe"
 cd /d "%REPO_DIR%"
 
 echo 🔍 Prüfe auf Updates für: !REPO_URL! 📡
