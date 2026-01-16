@@ -3,7 +3,7 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 
 :: 🎨 Konfiguration
-set "REPO_URL=https://github.com/diggerwf/Updater.git"
+set "REPO_URL=https://github.com/diggerwf/updater-vor-windows.git"
 set "BRANCH=main"
 set "REPO_DIR=%~dp0"
 cd /d "%REPO_DIR%"
@@ -59,3 +59,4 @@ if exist ".git\" (
 echo.
 echo ✨ Fertig! Dein Ordner ist jetzt 1:1 wie auf GitHub. 🥳
 pause
+
