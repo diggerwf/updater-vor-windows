@@ -61,3 +61,4 @@ if exist ".git\" (
 echo.
 echo ✨ Fertig! Dein Ordner ist jetzt mit !REPO_URL! synchron. 🥳
 pause
+:: test
