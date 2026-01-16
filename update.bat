@@ -52,6 +52,7 @@ if exist ".git\" (
         if exist "!START_FILE!" (
             echo 🚀 Starte !START_FILE!...
             start "" "!START_FILE!"
+        )
     )
 ) else (
     echo 🏗️ Ersteinrichtung läuft... 🔧
@@ -73,5 +74,6 @@ if exist "!START_FILE!" (
 )
 
 pause
+
 
 
